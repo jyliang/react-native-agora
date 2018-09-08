@@ -346,6 +346,17 @@ RCT_EXPORT_METHOD(allowMusicMix) {
     [self sendEvent:params];
 }
 
+/*
+ Remote video state change
+ */
+- (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state {
+  NSMutableDictionary *params = @{}.mutableCopy;
+  params[@"type"] = @"onRemoteVideoStateChanged";
+  params[@"uid"] = [NSNumber numberWithInteger:uid];
+  params[@"state"] = [NSNumber numberWithInteger:(NSInteger)state];
+  [self sendEvent:params];
+}
+
 - (NSArray<NSString *> *)supportedEvents {
   return @[@"agoraEvent"];
 }
