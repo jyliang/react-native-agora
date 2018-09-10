@@ -12,6 +12,7 @@
 #import <React/RCTUIManager.h>
 #import <React/RCTView.h>
 #import "AgoraConst.h"
+#import "AgoraVolumeManager.h"
 
 @interface RCTAgora ()
 @property (strong, nonatomic) AgoraRtcEngineKit *rtcEngine;
@@ -63,7 +64,7 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)options) {
     [self.rtcEngine setClientRole:[options[@"clientRole"] integerValue]];
     //Agora Native SDK 与 Agora Web SDK 间的互通
     [self.rtcEngine enableWebSdkInteroperability:YES];
-    
+    [self.rtcEngine enableAudioVolumeIndication:200 smooth:3];
 }
 
 //加入房间
@@ -332,18 +333,25 @@ RCT_EXPORT_METHOD(allowMusicMix) {
  需要开启enableAudioVolumeIndication
  */
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine reportAudioVolumeIndicationOfSpeakers:(NSArray*)speakers totalVolume:(NSInteger)totalVolume {
-    NSMutableDictionary *params = @{}.mutableCopy;
-    params[@"type"] = @"onAudioVolumeIndication";
-    
-    NSMutableArray *arr = [NSMutableArray array];
-    for (AgoraRtcAudioVolumeInfo *obj in speakers) {
-        [arr addObject:@{@"uid":[NSNumber numberWithInteger:obj.uid], @"volume":[NSNumber numberWithInteger:obj.volume]}];
+  for (AgoraRtcAudioVolumeInfo *info in speakers) {
+    if (info.uid != 0) {
+      [[AgoraVolumeManager sharedInstance] updateRemoteId:info.uid withVolume:info.volume];
     }
-    
-    params[@"speakers"] = arr;
-    params[@"totalVolume"] = [NSNumber numberWithInteger:totalVolume];
-    
-    [self sendEvent:params];
+  }
+  
+  // We can't use this via react native
+//    NSMutableDictionary *params = @{}.mutableCopy;
+//    params[@"type"] = @"onAudioVolumeIndication";
+//
+//    NSMutableArray *arr = [NSMutableArray array];
+//    for (AgoraRtcAudioVolumeInfo *obj in speakers) {
+//        [arr addObject:@{@"uid":[NSNumber numberWithInteger:obj.uid], @"volume":[NSNumber numberWithInteger:obj.volume]}];
+//    }
+//
+//    params[@"speakers"] = arr;
+//    params[@"totalVolume"] = [NSNumber numberWithInteger:totalVolume];
+//
+//    [self sendEvent:params];
 }
 
 /*
