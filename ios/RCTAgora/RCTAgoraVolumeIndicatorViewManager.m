@@ -13,6 +13,8 @@
 RCT_EXPORT_MODULE()
 
 RCT_EXPORT_VIEW_PROPERTY(remoteId, NSInteger)
+RCT_EXPORT_VIEW_PROPERTY(minPercent, CGFloat)
+RCT_EXPORT_VIEW_PROPERTY(isCircle, BOOL)
 
 - (UIView *)view {
   return [[RCTAgoraVolumeIndicatorView alloc] init];

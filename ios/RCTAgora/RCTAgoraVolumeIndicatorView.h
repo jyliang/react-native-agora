@@ -6,10 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AgoraConst.h"
 
-@interface RCTAgoraVolumeIndicatorView : UIView
+@interface RCTAgoraVolumeIndicatorView : UIView <RCTAgoraVolumeIndicatorDelegate>
 
 @property (nonatomic) CGFloat percent;
 @property (nonatomic) NSUInteger remoteId;
+@property (nonatomic) CGFloat minPercent;
+@property (nonatomic) BOOL isCircle;
 
 @end
