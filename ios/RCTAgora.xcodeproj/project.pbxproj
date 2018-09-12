@@ -12,6 +12,8 @@
 		23C20DD11F0A6ED80095F60C /* AgoraConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20DCC1F0A6ED80095F60C /* AgoraConst.m */; };
 		23C20DD21F0A6ED80095F60C /* RCTAgoraVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20DCE1F0A6ED80095F60C /* RCTAgoraVideoView.m */; };
 		23C20DD31F0A6ED80095F60C /* RCTAgoraViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20DD01F0A6ED80095F60C /* RCTAgoraViewManager.m */; };
+		4F39484C21489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F39484821489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m */; };
+		4F39484D21489812001D0E40 /* RCTAgoraVolumeOpacityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F39484A21489812001D0E40 /* RCTAgoraVolumeOpacityView.m */; };
 		4FCEF08F21444DA400848BD5 /* RCTAgoraVolumeIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCEF08E21444DA400848BD5 /* RCTAgoraVolumeIndicatorView.m */; };
 		4FCEF09221444DE800848BD5 /* RCTAgoraVolumeIndicatorViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCEF09121444DE800848BD5 /* RCTAgoraVolumeIndicatorViewManager.m */; };
 		4FCEF0952144C6FE00848BD5 /* AgoraVolumeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FCEF0942144C6FE00848BD5 /* AgoraVolumeManager.m */; };
@@ -42,6 +44,10 @@
 		23C20DCE1F0A6ED80095F60C /* RCTAgoraVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraVideoView.m; sourceTree = "<group>"; };
 		23C20DCF1F0A6ED80095F60C /* RCTAgoraViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAgoraViewManager.h; sourceTree = "<group>"; };
 		23C20DD01F0A6ED80095F60C /* RCTAgoraViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraViewManager.m; sourceTree = "<group>"; };
+		4F39484821489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraVolumeOpacityViewManager.m; sourceTree = "<group>"; };
+		4F39484921489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAgoraVolumeOpacityViewManager.h; sourceTree = "<group>"; };
+		4F39484A21489812001D0E40 /* RCTAgoraVolumeOpacityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraVolumeOpacityView.m; sourceTree = "<group>"; };
+		4F39484B21489812001D0E40 /* RCTAgoraVolumeOpacityView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAgoraVolumeOpacityView.h; sourceTree = "<group>"; };
 		4FCEF08D21444DA400848BD5 /* RCTAgoraVolumeIndicatorView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAgoraVolumeIndicatorView.h; sourceTree = "<group>"; };
 		4FCEF08E21444DA400848BD5 /* RCTAgoraVolumeIndicatorView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraVolumeIndicatorView.m; sourceTree = "<group>"; };
 		4FCEF09021444DE800848BD5 /* RCTAgoraVolumeIndicatorViewManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAgoraVolumeIndicatorViewManager.h; sourceTree = "<group>"; };
@@ -95,6 +101,10 @@
 				4FCEF08E21444DA400848BD5 /* RCTAgoraVolumeIndicatorView.m */,
 				4FCEF09021444DE800848BD5 /* RCTAgoraVolumeIndicatorViewManager.h */,
 				4FCEF09121444DE800848BD5 /* RCTAgoraVolumeIndicatorViewManager.m */,
+				4F39484B21489812001D0E40 /* RCTAgoraVolumeOpacityView.h */,
+				4F39484A21489812001D0E40 /* RCTAgoraVolumeOpacityView.m */,
+				4F39484921489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.h */,
+				4F39484821489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m */,
 				4FCEF0932144C6FE00848BD5 /* AgoraVolumeManager.h */,
 				4FCEF0942144C6FE00848BD5 /* AgoraVolumeManager.m */,
 				23AF281F1EEFECD800D771AB /* RCTAgora.h */,
@@ -164,6 +174,8 @@
 				4FCEF0952144C6FE00848BD5 /* AgoraVolumeManager.m in Sources */,
 				4FCEF08F21444DA400848BD5 /* RCTAgoraVolumeIndicatorView.m in Sources */,
 				23C20DD21F0A6ED80095F60C /* RCTAgoraVideoView.m in Sources */,
+				4F39484D21489812001D0E40 /* RCTAgoraVolumeOpacityView.m in Sources */,
+				4F39484C21489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m in Sources */,
 				23C20DD31F0A6ED80095F60C /* RCTAgoraViewManager.m in Sources */,
 				4FCEF09821454E8900848BD5 /* CircleView.m in Sources */,
 				23C20DD11F0A6ED80095F60C /* AgoraConst.m in Sources */,
