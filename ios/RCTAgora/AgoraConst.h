@@ -19,3 +19,9 @@
 + (instancetype)share;
 
 @end
+
+@protocol RCTAgoraVolumeIndicatorDelegate
+
+- (void)updateVolumePercent:(CGFloat)percent;
+
+@end

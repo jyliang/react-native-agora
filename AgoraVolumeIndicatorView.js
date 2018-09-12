@@ -17,6 +17,8 @@ export default class AgoraVolumeIndicatorView extends Component {
 
 AgoraVolumeIndicatorView.propTypes = {
     remoteId: PropTypes.number,
+    minPercent: PropTypes.number,
+    isCircle: PropTypes.bool,
     ...View.propTypes
 };
 

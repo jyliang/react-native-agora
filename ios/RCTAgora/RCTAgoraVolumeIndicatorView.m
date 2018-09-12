@@ -7,11 +7,12 @@
 
 #import "RCTAgoraVolumeIndicatorView.h"
 #import "AgoraVolumeManager.h"
-#import "CircleView.h"
+#import "IndicatorView.h"
 
 @interface RCTAgoraVolumeIndicatorView()
 
-@property (nonatomic, strong) UIView *circleView;
+@property (nonatomic, strong) IndicatorView *indicatorView;
+@property (nonatomic) BOOL firstLayout;
 
 @end
 
@@ -21,17 +22,33 @@
 {
   self = [super init];
   if (self) {
-    self.circleView = [[CircleView alloc] init];
-    self.circleView.backgroundColor = [UIColor clearColor];
-    [self addSubview:self.circleView];
+    self.indicatorView = [[IndicatorView alloc] init];
+    self.indicatorView.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.indicatorView];
+    self.firstLayout = YES;
+    self.minPercent = 50;
   }
   return self;
 }
 
+- (void)setIsCircle:(BOOL)isCircle {
+  _isCircle = isCircle;
+  self.indicatorView.isCircle = isCircle;
+  [self update];
+}
+
 - (void)setPercent:(CGFloat)percent {
   _percent = MIN(100, percent);
-  
-  CGFloat minPercent = 0.2;
+  [self update];
+}
+
+- (void)setMinPercent:(CGFloat)minPercent {
+  _minPercent = MIN(100, minPercent);
+  [self update];
+}
+
+- (void)update {
+  CGFloat minPercent = self.minPercent / 100.0;
   CGFloat minDimension = MIN(self.bounds.size.width, self.bounds.size.height);
   CGFloat insetDistance =  (1 - (_percent/100 * (1 - minPercent) + minPercent)) *  minDimension / 2;
   CGFloat length = minDimension - insetDistance * 2;
@@ -40,9 +57,16 @@
                                  length,
                                  length);
   
-  [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-    self.circleView.frame = borderRect;
-    [self.circleView setNeedsDisplay];
+  if (self.firstLayout) {
+    self.indicatorView.frame = borderRect;
+    [self.indicatorView setNeedsDisplay];
+    self.firstLayout = NO;
+    return;
+  }
+  
+  [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:1 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+    self.indicatorView.frame = borderRect;
+    [self.indicatorView setNeedsDisplay];
   } completion:nil];
 }
 
@@ -54,6 +78,11 @@
 
 - (void)dealloc {
   [AgoraVolumeManager.sharedInstance unregisterView:self withRemoteId:_remoteId];
+}
+
+#pragma mark - RCTAgoraVolumeIndicatorDelegate
+- (void)updateVolumePercent:(CGFloat)percent {
+  self.percent = percent;
 }
 
 @end

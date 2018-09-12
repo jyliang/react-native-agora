@@ -42,13 +42,13 @@
   return va;
 }
 
-- (void)registerView:(RCTAgoraVolumeIndicatorView *)view withRemoteId:(NSInteger)remoteId {
+- (void)registerView:(id<RCTAgoraVolumeIndicatorDelegate>)view withRemoteId:(NSInteger)remoteId {
   NSMutableSet *va = [self viewArrayForRemoteId:remoteId];
   [va addObject:view];
 }
 
 
-- (void)unregisterView:(RCTAgoraVolumeIndicatorView *)view withRemoteId:(NSInteger)remoteId {
+- (void)unregisterView:(id<RCTAgoraVolumeIndicatorDelegate>)view withRemoteId:(NSInteger)remoteId {
   NSMutableSet *va = [self viewArrayForRemoteId:remoteId];
   [va removeObject:view];
 }
@@ -56,8 +56,8 @@
 - (void)updateRemoteId:(NSUInteger)remoteId withVolume:(NSUInteger)volume {
   NSMutableSet *va = [self viewArrayForRemoteId:remoteId];
   CGFloat percent = ((CGFloat)volume / 100.0 * 100);
-  for (RCTAgoraVolumeIndicatorView *v in [va allObjects]) {
-    [v setPercent:percent];
+  for (id<RCTAgoraVolumeIndicatorDelegate> v in [va allObjects]) {
+    [v updateVolumePercent:percent];
   }
 }
 @end
