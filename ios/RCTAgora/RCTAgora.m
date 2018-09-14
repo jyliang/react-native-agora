@@ -13,6 +13,7 @@
 #import <React/RCTView.h>
 #import "AgoraConst.h"
 #import "AgoraVolumeManager.h"
+#import "AgoraStateManager.h"
 
 @interface RCTAgora ()
 @property (strong, nonatomic) AgoraRtcEngineKit *rtcEngine;
@@ -321,6 +322,7 @@ RCT_EXPORT_METHOD(allowMusicMix) {
  用户离线回调
  */
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine didOfflineOfUid:(NSUInteger)uid reason:(AgoraUserOfflineReason)reason {
+    [[AgoraStateManager sharedInstance] removeStateCheckForUID:uid];
     NSMutableDictionary *params = @{}.mutableCopy;
     params[@"type"] = @"onUserOffline";
     params[@"uid"] = [NSNumber numberWithInteger:uid];
@@ -358,10 +360,11 @@ RCT_EXPORT_METHOD(allowMusicMix) {
  Remote video state change
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state {
+  AgoraVideoRemoteState correctedState = [[AgoraStateManager sharedInstance] getCorrectedStateForUID:uid withNewState:state];
   NSMutableDictionary *params = @{}.mutableCopy;
   params[@"type"] = @"onRemoteVideoStateChanged";
   params[@"uid"] = [NSNumber numberWithInteger:uid];
-  params[@"state"] = [NSNumber numberWithInteger:(NSInteger)state];
+  params[@"state"] = [NSNumber numberWithInteger:(NSInteger)correctedState];
   [self sendEvent:params];
 }
 
