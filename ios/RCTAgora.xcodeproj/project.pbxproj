@@ -12,6 +12,7 @@
 		23C20DD11F0A6ED80095F60C /* AgoraConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20DCC1F0A6ED80095F60C /* AgoraConst.m */; };
 		23C20DD21F0A6ED80095F60C /* RCTAgoraVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20DCE1F0A6ED80095F60C /* RCTAgoraVideoView.m */; };
 		23C20DD31F0A6ED80095F60C /* RCTAgoraViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 23C20DD01F0A6ED80095F60C /* RCTAgoraViewManager.m */; };
+		4F30C56B214C1CA5000A621D /* AgoraStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F30C569214C1CA5000A621D /* AgoraStateManager.m */; };
 		4F39484C21489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F39484821489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m */; };
 		4F39484D21489812001D0E40 /* RCTAgoraVolumeOpacityView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F39484A21489812001D0E40 /* RCTAgoraVolumeOpacityView.m */; };
 		4F39485021489D80001D0E40 /* IndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F39484F21489D7F001D0E40 /* IndicatorView.m */; };
@@ -44,6 +45,8 @@
 		23C20DCE1F0A6ED80095F60C /* RCTAgoraVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraVideoView.m; sourceTree = "<group>"; };
 		23C20DCF1F0A6ED80095F60C /* RCTAgoraViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAgoraViewManager.h; sourceTree = "<group>"; };
 		23C20DD01F0A6ED80095F60C /* RCTAgoraViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraViewManager.m; sourceTree = "<group>"; };
+		4F30C569214C1CA5000A621D /* AgoraStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgoraStateManager.m; sourceTree = "<group>"; };
+		4F30C56A214C1CA5000A621D /* AgoraStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgoraStateManager.h; sourceTree = "<group>"; };
 		4F39484821489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraVolumeOpacityViewManager.m; sourceTree = "<group>"; };
 		4F39484921489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAgoraVolumeOpacityViewManager.h; sourceTree = "<group>"; };
 		4F39484A21489812001D0E40 /* RCTAgoraVolumeOpacityView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAgoraVolumeOpacityView.m; sourceTree = "<group>"; };
@@ -107,6 +110,8 @@
 				4F39484821489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m */,
 				4FCEF0932144C6FE00848BD5 /* AgoraVolumeManager.h */,
 				4FCEF0942144C6FE00848BD5 /* AgoraVolumeManager.m */,
+				4F30C56A214C1CA5000A621D /* AgoraStateManager.h */,
+				4F30C569214C1CA5000A621D /* AgoraStateManager.m */,
 				23AF281F1EEFECD800D771AB /* RCTAgora.h */,
 				23AF28201EEFECD800D771AB /* RCTAgora.m */,
 			);
@@ -178,6 +183,7 @@
 				4F39484D21489812001D0E40 /* RCTAgoraVolumeOpacityView.m in Sources */,
 				4F39484C21489812001D0E40 /* RCTAgoraVolumeOpacityViewManager.m in Sources */,
 				23C20DD31F0A6ED80095F60C /* RCTAgoraViewManager.m in Sources */,
+				4F30C56B214C1CA5000A621D /* AgoraStateManager.m in Sources */,
 				23C20DD11F0A6ED80095F60C /* AgoraConst.m in Sources */,
 				23AF28211EEFECD800D771AB /* RCTAgora.m in Sources */,
 				4FCEF09221444DE800848BD5 /* RCTAgoraVolumeIndicatorViewManager.m in Sources */,

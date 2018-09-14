@@ -7,6 +7,7 @@
 //
 
 #import "RCTAgoraVideoView.h"
+#import "AgoraStateManager.h"
 
 @implementation RCTAgoraVideoView
 
@@ -33,6 +34,7 @@
 -(void)setRemoteUid:(NSInteger)remoteUid {
     _remoteUid = remoteUid;
     if (remoteUid > 0) {
+        [[AgoraStateManager sharedInstance] tryIgnoreNextStateUpdateForUID:(NSUInteger)remoteUid];
         AgoraRtcVideoCanvas *canvas = [[AgoraRtcVideoCanvas alloc] init];
         canvas.uid = remoteUid;
         canvas.view = self;

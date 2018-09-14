@@ -22,8 +22,7 @@
   return _instance;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
   self = [super init];
   if (self) {
     self.remoteViewMap = [NSMutableDictionary new];
@@ -31,33 +30,54 @@
   return self;
 }
 
-
-- (NSMutableSet *)viewArrayForRemoteId:(NSUInteger)remoteId {
+- (NSPointerArray *)viewArrayForRemoteId:(NSUInteger)remoteId {
   NSNumber *key = [NSNumber numberWithUnsignedInteger:remoteId];
-  NSMutableSet *va = self.remoteViewMap[key];
+  NSPointerArray *va = self.remoteViewMap[key];
   if (!va) {
-    va = [NSMutableSet new];
+    va = [NSPointerArray weakObjectsPointerArray];
     self.remoteViewMap[key] = va;
   }
   return va;
 }
 
 - (void)registerView:(id<RCTAgoraVolumeIndicatorDelegate>)view withRemoteId:(NSInteger)remoteId {
-  NSMutableSet *va = [self viewArrayForRemoteId:remoteId];
-  [va addObject:view];
+  NSPointerArray *va = [self viewArrayForRemoteId:remoteId];
+  [va addPointer:(__bridge void * _Nullable)(view)];
+  NSInteger foundIndex = NSNotFound;
+  NSUInteger index = 0;
+  for (id<RCTAgoraVolumeIndicatorDelegate> v in va) {
+    if (v == view) {
+      foundIndex = index;
+      break;
+    }
+    index++;
+  }
 }
 
-
 - (void)unregisterView:(id<RCTAgoraVolumeIndicatorDelegate>)view withRemoteId:(NSInteger)remoteId {
-  NSMutableSet *va = [self viewArrayForRemoteId:remoteId];
-  [va removeObject:view];
+  NSPointerArray *va = [self viewArrayForRemoteId:remoteId];
+  NSMutableArray *indexes = [NSMutableArray new];
+  NSUInteger index = 0;
+  for (id<RCTAgoraVolumeIndicatorDelegate> v in va) {
+    if (!v || v == view) {
+      [indexes addObject:[NSNumber numberWithUnsignedInteger:index]];
+    }
+    index++;
+  }
+  for (int i = (int)indexes.count-1; i >= 0; i--) {
+    [va removePointerAtIndex:[indexes[i] unsignedIntegerValue]];
+  }
+  if (va.count == 0) {
+    [self.remoteViewMap removeObjectForKey:[NSNumber numberWithInteger:remoteId]];
+  }
 }
 
 - (void)updateRemoteId:(NSUInteger)remoteId withVolume:(NSUInteger)volume {
-  NSMutableSet *va = [self viewArrayForRemoteId:remoteId];
+  NSPointerArray *va = [self viewArrayForRemoteId:remoteId];
   CGFloat percent = ((CGFloat)volume / 100.0 * 100);
-  for (id<RCTAgoraVolumeIndicatorDelegate> v in [va allObjects]) {
+  for (id<RCTAgoraVolumeIndicatorDelegate> v in va) {
     [v updateVolumePercent:percent];
   }
 }
+
 @end
