@@ -12,7 +12,6 @@
 @interface RCTAgoraVolumeIndicatorView()
 
 @property (nonatomic, strong) IndicatorView *indicatorView;
-@property (nonatomic) BOOL firstLayout;
 
 @end
 
@@ -25,7 +24,6 @@
     self.indicatorView = [[IndicatorView alloc] init];
     self.indicatorView.backgroundColor = [UIColor clearColor];
     [self addSubview:self.indicatorView];
-    self.firstLayout = YES;
     self.minPercent = 50;
   }
   return self;
@@ -57,17 +55,25 @@
                                  length,
                                  length);
   
-  if (self.firstLayout) {
+  if (CGRectEqualToRect(borderRect, CGRectZero)) {
+    // Do nothing
+  } else if (CGRectEqualToRect(self.indicatorView.frame, CGRectZero)) {
     self.indicatorView.frame = borderRect;
     [self.indicatorView setNeedsDisplay];
-    self.firstLayout = NO;
-    return;
+  } else {
+    
+    [UIView animateWithDuration:1.5
+                          delay:0
+         usingSpringWithDamping:0.5
+          initialSpringVelocity:1
+                        options:(UIViewAnimationOptionBeginFromCurrentState |
+                                 UIViewAnimationOptionCurveEaseInOut)
+                     animations:^{
+                       self.indicatorView.frame = borderRect;
+                       [self.indicatorView setNeedsDisplay];
+                     }
+                     completion:nil];
   }
-  
-  [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:1 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
-    self.indicatorView.frame = borderRect;
-    [self.indicatorView setNeedsDisplay];
-  } completion:nil];
 }
 
 - (void)setRemoteId:(NSUInteger)remoteId {
