@@ -65,7 +65,7 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)options) {
     [self.rtcEngine setClientRole:[options[@"clientRole"] integerValue]];
     //Agora Native SDK 与 Agora Web SDK 间的互通
     [self.rtcEngine enableWebSdkInteroperability:YES];
-    [self.rtcEngine enableAudioVolumeIndication:200 smooth:3];
+    [self.rtcEngine enableAudioVolumeIndication:500 smooth:10];
 }
 
 //加入房间
@@ -336,9 +336,7 @@ RCT_EXPORT_METHOD(allowMusicMix) {
  */
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine reportAudioVolumeIndicationOfSpeakers:(NSArray*)speakers totalVolume:(NSInteger)totalVolume {
   for (AgoraRtcAudioVolumeInfo *info in speakers) {
-    if (info.uid != 0) {
-      [[AgoraVolumeManager sharedInstance] updateRemoteId:info.uid withVolume:info.volume];
-    }
+    [[AgoraVolumeManager sharedInstance] updateRemoteId:info.uid withVolume:info.volume];
   }
   
   // We can't use this via react native
