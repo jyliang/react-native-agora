@@ -228,16 +228,6 @@ RCT_EXPORT_METHOD(muteRemoteVideoStream:(NSUInteger)uid mute:(BOOL)mute){
     [self.rtcEngine muteRemoteVideoStream:uid mute:mute];
 }
 
-//启动服务端录制服务
-RCT_EXPORT_METHOD(startRecordingService:(NSString*)recordingKey){
-    [self.rtcEngine startRecordingService:recordingKey];
-}
-
-//停止服务端录制服务
-RCT_EXPORT_METHOD(stopRecordingService:(NSString*)recordingKey){
-    [self.rtcEngine stopRecordingService:recordingKey];
-}
-
 //获取版本号
 RCT_EXPORT_METHOD(getSdkVersion:(RCTResponseSenderBlock)callback){
     callback(@[[AgoraRtcEngineKit getSdkVersion]]);

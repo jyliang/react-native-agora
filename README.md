@@ -106,8 +106,6 @@ Add following to `AndroidManifest.xml`
 | enableLocalVideo                 | bool (default false)                     | 禁用本地视频功能                              |
 | muteAllRemoteVideoStreams        | bool (default false)                     | 暂停所有远端视频流                             |
 | muteRemoteVideoStream            | number uid（用户uid） bool  mute（是否暂停）       | 暂停指定远端视频流                             |
-| startRecordingService (iOS only) | string  recordingKey                     | 启动服务端录制服务                             |
-| stopRecordingService (iOS only)  | string  recordingKey                     | 停止服务端录制服务                             |
 | getSdkVersion                    | callback                                 | 获取版本号                                 |
 | createDataStream | (boolean reliable, boolean ordered, (streamId) => {}), 其中 reliable, ordered 请参考官方文档同名方法说明 | 创建数据流通道 |
 | sendStreamMessage | (number streamId, string message, (errorCode) => {})| 发送数据 |

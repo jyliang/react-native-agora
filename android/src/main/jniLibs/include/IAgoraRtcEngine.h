@@ -2139,13 +2139,6 @@ public:
         }
         return m_parameter->setString("che.video.localViewMirrorSetting", value);
     }
-	int startRecordingService(const char* recordingKey) {
-        return m_parameter ? m_parameter->setString("rtc.api.start_recording_service", recordingKey) : -ERR_NOT_INITIALIZED;
-    }
-    
-    int stopRecordingService(const char* recordingKey) {
-        return m_parameter ? m_parameter->setString("rtc.api.stop_recording_service", recordingKey) : -ERR_NOT_INITIALIZED;
-    }
     
     int refreshRecordingServiceStatus() {
         return m_parameter ? m_parameter->setBool("rtc.api.query_recording_service_status", true) : -ERR_NOT_INITIALIZED;
