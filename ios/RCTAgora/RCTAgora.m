@@ -348,12 +348,7 @@ RCT_EXPORT_METHOD(allowMusicMix) {
  Remote video state change
  */
 - (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state {
-  AgoraVideoRemoteState correctedState = [[AgoraStateManager sharedInstance] getCorrectedStateForUID:uid withNewState:state];
-  NSMutableDictionary *params = @{}.mutableCopy;
-  params[@"type"] = @"onRemoteVideoStateChanged";
-  params[@"uid"] = [NSNumber numberWithInteger:uid];
-  params[@"state"] = [NSNumber numberWithInteger:(NSInteger)correctedState];
-  [self sendEvent:params];
+  [[AgoraStateManager sharedInstance] remoteVideoStateChangedOfUid:uid state:state callBackBridge:_bridge];
 }
 
 - (NSArray<NSString *> *)supportedEvents {
