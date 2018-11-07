@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <React/RCTBridge.h>
 #import "AgoraConst.h"
 
 // This entire class is to amend a sideeffect:
@@ -26,5 +27,6 @@
 - (AgoraVideoRemoteState)getCorrectedStateForUID:(NSUInteger)uid withNewState:(AgoraVideoRemoteState)newState;
 - (void)tryIgnoreNextStateUpdateForUID:(NSUInteger)uid;
 - (void)removeStateCheckForUID:(NSUInteger)uid;
+- (void)remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state callBackBridge:(RCTBridge *)bridge;
 
 @end

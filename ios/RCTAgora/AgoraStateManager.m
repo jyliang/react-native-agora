@@ -125,8 +125,6 @@
   } else {
     [self.queue addOperations:@[op] waitUntilFinished:NO];
   }
-  
-  
 }
 
 @end
