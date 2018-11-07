@@ -20,6 +20,12 @@
  Solution: ignore first signal after re-render if the state was registered for that remote id before
  */
 
+/*
+ This class is now more powerful to counter freeze flickering by using operation queues to delay the effect for a few seconds before switching to video placeholder.
+ 
+ This class is now handling video state correction (derived from video frame rate) to improve QOS.
+ */
+
 @interface AgoraStateManager : NSObject
 
 + (AgoraStateManager *)sharedInstance;
@@ -28,5 +34,6 @@
 - (void)tryIgnoreNextStateUpdateForUID:(NSUInteger)uid;
 - (void)removeStateCheckForUID:(NSUInteger)uid;
 - (void)remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state callBackBridge:(RCTBridge *)bridge;
+- (void)processRemoteVideoStats:(AgoraRtcRemoteVideoStats *)stats callBackBridge:(RCTBridge *)bridge;
 
 @end

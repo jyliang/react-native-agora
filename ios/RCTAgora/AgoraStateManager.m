@@ -127,4 +127,20 @@
   }
 }
 
+- (void)processRemoteVideoStats:(AgoraRtcRemoteVideoStats *)stats callBackBridge:(RCTBridge *)bridge{
+  NSNumber *key = [NSNumber numberWithUnsignedInteger:stats.uid];
+  if (self.operationMap[key]) {
+    //Our default process is making some changes to the states. Relax.
+    return;
+  }
+  NSNumber *storedState = self.videoStateMap[key];
+  if (storedState) {
+    AgoraVideoRemoteState state = (AgoraVideoRemoteState)[storedState unsignedIntegerValue];
+    AgoraVideoRemoteState derivedState = stats.receivedFrameRate > 0 ? AgoraVideoRemoteStateRunning : AgoraVideoRemoteStateFrozen;
+    if (state != derivedState) {
+      [self remoteVideoStateChangedOfUid:stats.uid state:derivedState callBackBridge:bridge];
+    }
+  }
+}
+
 @end

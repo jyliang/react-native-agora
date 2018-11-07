@@ -371,5 +371,9 @@ RCT_EXPORT_METHOD(allowMusicMix) {
 //
 //}
 
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine remoteVideoStats:(AgoraRtcRemoteVideoStats *)stats {
+  [[AgoraStateManager sharedInstance] processRemoteVideoStats:stats callBackBridge:_bridge];
+}
+
 @end
 
