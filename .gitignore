@@ -52,3 +52,5 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 android/src/main/res/drawable/
+ios/RCTAgora.xcodeproj/project.xcworkspace/xcuserdata/
+ios/RCTAgora.xcodeproj/xcuserdata/
