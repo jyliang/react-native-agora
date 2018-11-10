@@ -10,6 +10,7 @@
 #import <React/RCTBridge.h>
 #import "AgoraConst.h"
 
+@class RCTAgoraVideoView;
 // This entire class is to amend a sideeffect:
 /*
  1. A and B is in a chat
@@ -30,10 +31,23 @@
 
 + (AgoraStateManager *)sharedInstance;
 
+@property (strong, nonatomic) AgoraRtcEngineKit *rtcEngine;
+
+@property (nonatomic, strong) NSString *channelName;
+@property (nonatomic) NSInteger uid;
+
+- (void)registerVideoView:(RCTAgoraVideoView *)view forUserID:(NSInteger)uid;
+- (void)unregsiterVideoView:(NSInteger)uid;
+
 - (AgoraVideoRemoteState)getCorrectedStateForUID:(NSUInteger)uid withNewState:(AgoraVideoRemoteState)newState;
 - (void)tryIgnoreNextStateUpdateForUID:(NSUInteger)uid;
 - (void)removeStateCheckForUID:(NSUInteger)uid;
 - (void)remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state callBackBridge:(RCTBridge *)bridge;
 - (void)processRemoteVideoStats:(AgoraRtcRemoteVideoStats *)stats callBackBridge:(RCTBridge *)bridge;
+
+// These member infos are useful when retry to fix user video states.
+- (void)registerMemberInfo:(NSDictionary *)info;
+- (void)unregisterMemberInfo:(NSString *)userId;
+- (void)unregisterAllMemberInfo;
 
 @end

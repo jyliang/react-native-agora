@@ -53,6 +53,7 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)options) {
     [AgoraConst share].appid = options[@"appid"];
     
     self.rtcEngine = [AgoraRtcEngineKit sharedEngineWithAppId:options[@"appid"] delegate:self];
+    [AgoraStateManager sharedInstance].rtcEngine = self.rtcEngine;
     
     [AgoraConst share].rtcEngine = self.rtcEngine;
     
@@ -64,7 +65,7 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)options) {
     [self.rtcEngine setVideoProfile:[options[@"videoProfile"] integerValue]swapWidthAndHeight:[options[@"swapWidthAndHeight"]boolValue]];
     [self.rtcEngine setClientRole:[options[@"clientRole"] integerValue]];
     //Agora Native SDK 与 Agora Web SDK 间的互通
-    [self.rtcEngine enableWebSdkInteroperability:YES];
+    [self.rtcEngine enableWebSdkInteroperability:NO];
     [self.rtcEngine enableAudioVolumeIndication:500 smooth:10];
 }
 
@@ -72,11 +73,15 @@ RCT_EXPORT_METHOD(init:(NSDictionary *)options) {
 RCT_EXPORT_METHOD(joinChannel:(NSString *)channelName uid:(NSInteger)uid) {
     //保存一下uid 在自定义视图使用
     [AgoraConst share].localUid = uid;
+    [AgoraStateManager sharedInstance].channelName = channelName;
+    [AgoraStateManager sharedInstance].uid = uid;
     [self.rtcEngine joinChannelByToken:nil channelId:channelName info:nil uid:uid joinSuccess:NULL];
 }
 
 //离开频道
 RCT_EXPORT_METHOD(leaveChannel){
+    [AgoraStateManager sharedInstance].channelName = nil;
+    [AgoraStateManager sharedInstance].uid = -1;
     [self.rtcEngine leaveChannel:^(AgoraChannelStats * _Nonnull stat) {
       NSMutableDictionary *params = @{}.mutableCopy;
       params[@"type"] = @"onLeaveChannel";
@@ -244,6 +249,18 @@ RCT_EXPORT_METHOD(allowMusicMix) {
                                     scenario:AgoraAudioScenarioChatRoomGaming];
     result = [self.rtcEngine startAudioMixing:@"" loopback:YES replace:NO cycle:-1];
     NSLog(@"%d", result);
+}
+
+RCT_EXPORT_METHOD(registerMemberInfo:(NSDictionary *)info){
+  [[AgoraStateManager sharedInstance] registerMemberInfo:info];
+}
+  
+RCT_EXPORT_METHOD(unregisterMemberInfo:(NSString *)userId){
+  [[AgoraStateManager sharedInstance] unregisterMemberInfo:userId];
+}
+
+RCT_EXPORT_METHOD(unregisterAllMemberInfo){
+  [[AgoraStateManager sharedInstance] unregisterAllMemberInfo];
 }
 
 /*

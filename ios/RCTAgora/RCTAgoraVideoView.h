@@ -16,4 +16,6 @@
 @property (nonatomic) BOOL showLocalVideo;
 @property (nonatomic) NSInteger remoteUid;
 
+- (void)rebootView;
+
 @end
