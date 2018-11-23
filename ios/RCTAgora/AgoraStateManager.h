@@ -35,6 +35,7 @@
 
 @property (nonatomic, strong) NSString *channelName;
 @property (nonatomic) NSInteger uid;
+@property (nonatomic) BOOL onFirstLocalVideoDecoded;
 
 - (void)registerVideoView:(RCTAgoraVideoView *)view forUserID:(NSInteger)uid;
 - (void)unregsiterVideoView:(NSInteger)uid;
@@ -43,6 +44,7 @@
 - (void)tryIgnoreNextStateUpdateForUID:(NSUInteger)uid;
 - (void)removeStateCheckForUID:(NSUInteger)uid;
 - (void)remoteVideoStateChangedOfUid:(NSUInteger)uid state:(AgoraVideoRemoteState)state callBackBridge:(RCTBridge *)bridge;
+- (void)processLocalVideoStats:(AgoraRtcLocalVideoStats *)stats callBackBridge:(RCTBridge *)bridge;
 - (void)processRemoteVideoStats:(AgoraRtcRemoteVideoStats *)stats callBackBridge:(RCTBridge *)bridge;
 
 // These member infos are useful when retry to fix user video states.

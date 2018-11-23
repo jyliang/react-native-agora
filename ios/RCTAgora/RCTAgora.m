@@ -80,8 +80,10 @@ RCT_EXPORT_METHOD(joinChannel:(NSString *)channelName uid:(NSInteger)uid) {
 
 //离开频道
 RCT_EXPORT_METHOD(leaveChannel){
-  [AgoraStateManager sharedInstance].channelName = nil;
-  [AgoraStateManager sharedInstance].uid = -1;
+  AgoraStateManager *mgr = [AgoraStateManager sharedInstance];
+  mgr.channelName = nil;
+  mgr.uid = -1;
+  mgr.onFirstLocalVideoDecoded = NO;
   [self.rtcEngine leaveChannel:^(AgoraChannelStats * _Nonnull stat) {
     NSMutableDictionary *params = @{}.mutableCopy;
     params[@"type"] = @"onLeaveChannel";
@@ -311,7 +313,15 @@ RCT_EXPORT_METHOD(unregisterAllMemberInfo){
   params[@"uid"] = [NSNumber numberWithInteger:uid];
   
   [self sendEvent:params];
-  
+}
+
+- (void)rtcEngine:(AgoraRtcEngineKit * _Nonnull)engine firstLocalVideoFrameWithSize:(CGSize)size elapsed:(NSInteger)elapsed {
+  if (![AgoraStateManager sharedInstance].onFirstLocalVideoDecoded) {
+    NSMutableDictionary *params = @{}.mutableCopy;
+    params[@"type"] = @"onFirstLocalVideoDecoded";
+    [self sendEvent:params];
+    [AgoraStateManager sharedInstance].onFirstLocalVideoDecoded = YES;
+  }
 }
 
 /*
@@ -390,6 +400,10 @@ RCT_EXPORT_METHOD(unregisterAllMemberInfo){
 
 - (void)rtcEngine:(AgoraRtcEngineKit *)engine remoteVideoStats:(AgoraRtcRemoteVideoStats *)stats {
   [[AgoraStateManager sharedInstance] processRemoteVideoStats:stats callBackBridge:_bridge];
+}
+
+- (void)rtcEngine:(AgoraRtcEngineKit *)engine localVideoStats:(AgoraRtcLocalVideoStats *)stats {
+  [[AgoraStateManager sharedInstance] processLocalVideoStats:stats callBackBridge:_bridge];
 }
 
 @end

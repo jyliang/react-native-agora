@@ -148,6 +148,17 @@
   }
 }
 
+- (void)processLocalVideoStats:(AgoraRtcLocalVideoStats *)stats callBackBridge:(RCTBridge *)bridge {
+  if (!self.onFirstLocalVideoDecoded) {
+    if (stats.sentFrameRate > 0) {
+      NSMutableDictionary *params = @{}.mutableCopy;
+      params[@"type"] = @"onFirstLocalVideoDecoded";
+      [bridge.eventDispatcher sendDeviceEventWithName:@"agoraEvent" body:params];
+      self.onFirstLocalVideoDecoded = YES;
+    }
+  }
+}
+
 - (void)processRemoteVideoStats:(AgoraRtcRemoteVideoStats *)stats callBackBridge:(RCTBridge *)bridge{
   NSNumber *key = [NSNumber numberWithUnsignedInteger:stats.uid];
   
